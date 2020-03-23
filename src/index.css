@@ -24,5 +24,13 @@ main {
   display: flex;
   flex-direction: column;
   justify-content: space-evenly;
-  height: 100vh;
+  height: fit-content;
+}
+
+ul {
+  list-style: none;
+}
+
+.card {
+  text-align: center;
 }
