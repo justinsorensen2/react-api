@@ -13,8 +13,8 @@ class App extends React.Component {
           title: 'Bob Smith Goes to Hell',
           poster_path: '/4p1N2Qrt8j0H8xMHMHvtRxv9weZ.jpg',
           overview: 'Sometimes people get what they deserve.',
-          url: 'string',
-          alt: 'alt',
+          url: '',
+          alt: '',
         },
         {
           id: 89,
@@ -22,8 +22,8 @@ class App extends React.Component {
           poster_path: '/4p1N2Qrt8j0H8xMHMHvtRxv9weZ.jpg',
           overview:
             'When Dr. Henry Jones Sr. suddenly goes missing while pursuing the Holy Grail, eminent archaeologist Indiana must team up with Marcus Brody, Sallah and Elsa Schneider to follow in his fathers footsteps and stop the Nazis from recovering the power of eternal life.',
-          url: 'string',
-          alt: 'alt',
+          url: '',
+          alt: '',
         },
       ],
     }
@@ -37,40 +37,42 @@ class App extends React.Component {
       )
       .then(res => {
         const movies = res.data
-        if (this.state.movies.url == '') {
-          this.state.movies.url = `https://image.tmdb.org/t/p/w500${this.state.movies.poster_path}`
-        } else if (this.state.movies.alt == '') {
-          this.state.movies.alt = `${this.state.movies.title} poster`
-        }
+        this.state.movies.url = `https://image.tmdb.org/t/p/w500${this.state.movies.poster_path}`
+        this.state.movies.alt = `${this.state.movies.title} poster`
         this.setState({ movies })
       })
   }
 
   render() {
     const movieList = this.state
-
-    let movie = this.state.movies
-
     return (
       <>
         <Header></Header>
         <main>
           <ul>
-            {this.state.movies.map(movie => (
-              <li key={movie.id}>
-                <div className="card">
-                  <div className="card-body">
-                    <h5 className="card-title">
-                      ID:{movie.id} Title:{movie.title}
-                    </h5>
-                    <article className="card-image">
-                      <img src={movie.url} alt={movie.alt} />
-                    </article>
-                    <p className="card-text">{movie.overview}</p>
+            {this.state.map(movie, index => {
+              return (
+                <li key={movie[index].id}>
+                  <div className="card">
+                    <div className="card-body">
+                      <h5 className="card-title">
+                        ID:{movie.id} Title:
+                        {movie[index].movies.title}
+                      </h5>
+                      <article className="card-image">
+                        <img
+                          src={this.state[index].movies.url}
+                          alt={this.state[index].movies.alt}
+                        />
+                      </article>
+                      <p className="card-text">
+                        {this.state[index].movies.overview}
+                      </p>
+                    </div>
                   </div>
-                </div>
-              </li>
-            ))}
+                </li>
+              )
+            })}
           </ul>
         </main>
       </>
